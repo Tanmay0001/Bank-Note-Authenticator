@@ -6,7 +6,12 @@ import streamlit as st
 from PIL import Image
 
 # Fix for deployment: use absolute path to classifier.pkl
-pickle_path = os.path.join(os.path.dirname(__file__), "classifier.pkl")
+try:
+    pickle_path = os.path.join(os.path.dirname(__file__), "classifier.pkl")
+except NameError:
+    # __file__ may not be defined in some environments (like Streamlit Cloud)
+    pickle_path = "classifier.pkl"
+
 with open(pickle_path, "rb") as pickle_in:
     classifier = pickle.load(pickle_in)
 

@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+env
 
 # Ignore large or temporary files
 #*.pkl

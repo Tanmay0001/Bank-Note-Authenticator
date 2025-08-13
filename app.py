@@ -5,15 +5,19 @@ import pandas as pd
 import streamlit as st 
 from PIL import Image
 
-# Fix for deployment: use absolute path to classifier.pkl
+# Deployment-safe pickle loading
 try:
+    # Local or normal execution
     pickle_path = os.path.join(os.path.dirname(__file__), "classifier.pkl")
 except NameError:
-    # __file__ may not be defined in some environments (like Streamlit Cloud)
+    # Streamlit Cloud (__file__ not defined)
     pickle_path = "classifier.pkl"
 
-with open(pickle_path, "rb") as pickle_in:
-    classifier = pickle.load(pickle_in)
+if not os.path.exists(pickle_path):
+    st.error(f"Pickle file not found at {pickle_path}")
+else:
+    with open(pickle_path, "rb") as pickle_in:
+        classifier = pickle.load(pickle_in)
 
 def welcome():
     return "Welcome All"
@@ -56,10 +60,10 @@ def main():
     """
     st.markdown(html_temp, unsafe_allow_html=True)
 
-    variance = st.text_input("Variance", "Type Here")
-    skewness = st.text_input("skewness", "Type Here")
-    curtosis = st.text_input("curtosis", "Type Here")
-    entropy = st.text_input("entropy", "Type Here")
+    variance = st.text_input("Variance","Type Here")
+    skewness = st.text_input("skewness","Type Here")
+    curtosis = st.text_input("curtosis","Type Here")
+    entropy = st.text_input("entropy","Type Here")
 
     result = ""
     if st.button("Predict"):

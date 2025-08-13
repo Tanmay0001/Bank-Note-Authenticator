@@ -14,6 +14,9 @@ The backend uses a **Random Forest Classifier** trained on the Bank Note Authent
   - Curtosis
   - Entropy
 - Instant prediction whether the note is **Genuine** or **Fake**
+- Provides instant prediction:
+  - `0 → Genuine Note ✅`
+  - `1 → Fake Note ❌`
 
 ---
 
